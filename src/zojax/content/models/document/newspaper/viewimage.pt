@@ -1,0 +1,9 @@
+<div class="model-photosContainer model-leftBlock"
+     tal:define="image view/getImage" tal:condition="image">
+  <div class="model-image">
+    <a target="_blank"
+       tal:attributes="title image/title; href image/url">
+      <img tal:attributes="src image/purl" />
+    </a>
+  </div>
+</div>

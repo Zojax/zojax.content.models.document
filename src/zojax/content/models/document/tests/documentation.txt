@@ -1,0 +1,154 @@
+==========================
+`Documentation` view model
+==========================
+
+  >>> from zope import component, event
+  >>> from zope.app.component.hooks import setSite
+  >>> from zope.lifecycleevent import ObjectModifiedEvent
+
+  >>> setSite(getRootFolder())
+
+  >>> from zope.testbrowser.testing import Browser
+
+  >>> actor = Browser()
+  >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+  >>> actor.handleErrors = False
+
+  >>> actor.open("http://localhost/content/++extensions++/")
+  >>> actor.getLink('View model').click()
+  >>> actor.getControl(name='form.widgets.view:list').value = ['__default__']
+  >>> actor.getControl(name='form.buttons.save').click()
+  >>> event.notify(ObjectModifiedEvent(getRootFolder()['content']))
+
+  >>> actor.open("http://localhost/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  ...<h1 class="z-content-title">My Content</h1>...
+  <div>My Content Body: My Content</div>
+  ...
+  </html>
+
+We need several attached images
+
+  >>> import os.path
+  >>> filePath = os.path.join(os.path.split(__file__)[0], 'image.jpg')
+  >>> file = open(filePath, 'rb').read()
+
+  >>> from zojax.content.attachment.image import Image
+  >>> from zojax.content.attachment.interfaces import IAttachmentsExtension
+
+  >>> content = getRootFolder()['content']
+  >>> data = IAttachmentsExtension(content)
+  >>> data['image1'] = Image(title='Image 1')
+  >>> data['image1'].data.data = file
+  >>> data['image2'] = Image(title='Image 2')
+  >>> data['image2'].data.data = file
+  >>> data['image3'] = Image(title='Image 3')
+  >>> data['image3'].data.data = file
+
+
+Enable
+
+  >>> actor.open("http://localhost/content/++extensions++/")
+  >>> actor.getLink('View model').click()
+  >>> actor.getControl(name='form.widgets.view:list').value = ['documentation']
+  >>> actor.getControl(name='form.buttons.save').click()
+
+Configure
+
+  >>> from zope import component
+  >>> from zope.publisher.browser import TestRequest
+  >>> from zojax.extensions.interfaces import IExtension
+
+  >>> request = TestRequest()
+  >>> ext = component.getMultiAdapter(
+  ...     (content, request), IExtension, 'content.model')
+  >>> ext.view = 'documentation'
+
+  >>> model = ext.getViewModel()
+  >>> model.images = ['image1', 'image3']
+  >>> event.notify(ObjectModifiedEvent(model))
+
+  >>> actor.open("http://localhost/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  <div class="model-photosContainer model-rightBlock">
+     <div class="model-image">
+        <a class="model-thickbox" target="_blank" title="Image 1" href="http://localhost/@@content.attachment/...">
+          <img src="http://localhost/@@content.attachment/.../preview/100x100" />
+        </a>
+      </div>
+      <div class="model-image">
+        <a class="model-thickbox" target="_blank" title="Image 3" href="http://localhost/@@content.attachment/...">
+          <img src="http://localhost/@@content.attachment/.../preview/100x100" />
+        </a>
+      </div>
+  </div>
+  ...
+  ...<h1 class="z-content-title">My Content</h1>...
+  <div>My Content Body: My Content</div>
+  ...
+  </html>
+
+  >>> model.showTitles = True
+  >>> model.images = ['image3', 'image2']
+  >>> event.notify(ObjectModifiedEvent(model))
+
+  >>> actor.open("http://localhost/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  ...<div class="model-photosContainer model-rightBlock">
+        <div class="model-image">
+          <a class="model-thickbox" target="_blank" title="Image 3" href="http://localhost/@@content.attachment/...">
+            <img src="..." />
+          </a>
+          <a class="thickbox model-photoTitle" target="_blank" title="Image 3" href="http://localhost/@@content.attachment/...">
+            <span>Image 3</span>&nbsp;
+          </a>
+        </div>
+        <div class="model-image">
+          <a class="model-thickbox" target="_blank" title="Image 2" href="http://localhost/@@content.attachment/...">
+            <img src="..." />
+          </a>
+          <a class="thickbox model-photoTitle" target="_blank" title="Image 2" href="http://localhost/@@content.attachment/...">
+            <span>Image 2</span>&nbsp;
+          </a>
+        </div>
+     </div>
+  ...
+  </html>
+
+
+Attachments
+
+  >>> model.attachments = ['image1', 'image2']
+  >>> event.notify(ObjectModifiedEvent(model))
+
+  >>> actor.open("http://localhost/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  <ul class="z-listing">
+     <li>
+       <div class="z-listing-icon"><img src="..." alt="Image" width="16" height="16" border="0" /></div>
+       <div class="z-listing-details">
+          <a target="_blank" title="Image 1" href="http://localhost/@@content.attachment/...">Image 1</a>
+          <span class="discreet">16 KB</span>
+       </div>
+     </li>
+     <li>
+       <div class="z-listing-icon"><img src="..." alt="Image" width="16" height="16" border="0" /></div>
+       <div class="z-listing-details">
+         <a target="_blank" title="Image 2" href="http://localhost/@@content.attachment/...">Image 2</a>
+         <span class="discreet">16 KB</span>
+       </div>
+     </li>
+  </ul>
+  ...
+  </html>
+
+  >>> setSite(None)
+

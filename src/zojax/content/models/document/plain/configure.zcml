@@ -1,0 +1,22 @@
+<configure 
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.content.models.document">
+
+  <!-- Plain view -->
+  <zojax:viewmodel
+     name="plain"
+     title="Plain view"
+     description="Show only contents of content item, without title, description or any additional information."
+     for="..interfaces.IDocumentModelsAware"
+     provides=".interfaces.IPlainModel" />
+
+  <!-- model view -->
+  <zojax:pagelet
+     for=".interfaces.IPlainModel"
+     class="..model.ModelView"
+     provides=".interfaces.IPlainModelView" 
+     type="content.model.renderer" />
+
+</configure>

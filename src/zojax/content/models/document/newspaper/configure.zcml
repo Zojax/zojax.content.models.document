@@ -1,0 +1,48 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.content.models.document">
+
+  <!-- newspaper model -->
+  <zojax:viewmodel
+     name="newspaper"
+     title="Model: Newspaper article"
+     description="The first image is displayed in the text header. Other images are displayed on the right, while attachments are on the bottom of the document. This is a simple layout that can be used for end-user articles, for example."
+     for="..interfaces.IDocumentModelsAware"
+     schema=".interfaces.INewspaperModel" />
+
+  <!-- model view -->
+  <zojax:pagelet
+     type="content.model.renderer"
+     for=".interfaces.INewspaperModel"
+     class="..model.ModelView"
+     provides=".interfaces.INewspaperModelView" />
+
+  <zojax:pageelement
+     name="model.documentation.image"
+     for="zojax.content.type.interfaces.IContent"
+     view=".interfaces.INewspaperModelView"
+     manager="zojax.content.browser.interfaces.IContentDescription"
+     template="viewimage.pt"
+     class=".views.Image"
+     weight="1" />
+
+  <zojax:pageelement
+     name="model.documentation.images"
+     for="zojax.content.type.interfaces.IContent"
+     view=".interfaces.INewspaperModelView"
+     manager="zojax.content.browser.interfaces.IContentTitle"
+     template="viewimages.pt"
+     class=".views.Images"
+     weight="1" />
+
+  <zojax:pageelement
+     name="model.documentation.attachments"
+     for="zojax.content.type.interfaces.IContent"
+     view=".interfaces.INewspaperModelView"
+     manager="zojax.content.browser.interfaces.IContentFooter"
+     template="viewattachments.pt"
+     class=".views.Attachments"
+     weight="1" />
+
+</configure>
