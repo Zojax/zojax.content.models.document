@@ -1,0 +1,17 @@
+<tal:block tal:define="dummy resourcepackage:zojax-content-models" />
+<div class="model-photosContainer model-rightBlock"
+     tal:define="images python:list(view.getImages())" tal:condition="images">
+  <tal:block repeat="image images" tal:define="showTitles view/showTitles">
+    <div class="model-image">
+      <a class="model-thickbox" target="_blank"
+         tal:attributes="title image/title|image/name; href image/url">
+          <img tal:attributes="src image/purl" />
+      </a>
+      <a class="thickbox model-photoTitle" target="_blank"
+	 tal:condition="python:showTitles and image['title']"
+         tal:attributes="title image/title; href image/url">
+        <span tal:content="image/title" />&nbsp;
+      </a>
+    </div>
+  </tal:block>
+</div>

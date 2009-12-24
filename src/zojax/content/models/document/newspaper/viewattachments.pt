@@ -1,0 +1,18 @@
+<div tal:define="attachments view/getAttachments" tal:condition="attachments">
+  <ul class="z-listing">
+    <li tal:repeat="attach attachments">
+      <div class="z-listing-icon" tal:content="structure attach/icon"></div>
+      <div class="z-listing-details">
+	<a target="_blank"
+	   tal:content="attach/title"
+           tal:attributes="title attach/title; href attach/url">
+	</a>
+	<span class="discreet" i18n:translate=""
+	      tal:condition="attach/size" tal:content="attach/size"></span>
+	<div tal:content="attach/description" 
+	     tal:condition="attach/description"></div>
+      </div>
+    </li>
+  </ul>
+  <div class="visualClear"></div>
+</div>

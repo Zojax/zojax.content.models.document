@@ -1,0 +1,21 @@
+<configure 
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.content.models.document">
+
+  <include package=".plain" />
+  <include package=".newspaper" />
+  <include package=".documentation" />
+
+  <!-- styles -->
+  <zojax:resourceinclude
+     name="zojax-content-models-document.css"
+     library="zojax-content-models"
+     type="stylesheet"
+     file="styles.css" filetype="zrt" />
+
+  <!-- translations -->
+  <i18n:registerTranslations directory="locales"/>
+
+</configure>

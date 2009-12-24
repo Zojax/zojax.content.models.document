@@ -1,0 +1,39 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.content.models.document">
+
+  <!-- documetnation model -->
+  <zojax:viewmodel
+     name="documentation"
+     title="Model: Documentation model"
+     description="Images are displayed on the right, while attachments are on the bottom of the document. This is a simple layout that can be used for documentation, for example."
+     for="..interfaces.IDocumentModelsAware"
+     schema=".interfaces.IDocumentationModel" />
+
+  <!-- model view -->
+  <zojax:pagelet
+     type="content.model.renderer"
+     for=".interfaces.IDocumentationModel"
+     class="..model.ModelView"
+     provides=".interfaces.IDocumentationModelView" />
+
+  <zojax:pageelement
+     name="model.documentation.images"
+     for="zojax.content.type.interfaces.IContent"
+     view=".interfaces.IDocumentationModelView"
+     manager="zojax.content.browser.interfaces.IContentTitle"
+     template="images.pt"
+     class=".images.Images"
+     weight="1" />
+
+  <zojax:pageelement
+     name="model.documentation.attachments"
+     for="zojax.content.type.interfaces.IContent"
+     view=".interfaces.IDocumentationModelView"
+     manager="zojax.content.browser.interfaces.IContentFooter"
+     template="attachments.pt"
+     class=".images.Attachments"
+     weight="1" />
+
+</configure>

@@ -1,0 +1,42 @@
+==================
+`Plain` view model
+==================
+
+  >>> from zope.testbrowser.testing import Browser
+
+  >>> actor = Browser()
+  >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+  >>> actor.handleErrors = False
+
+  >>> actor.open("http://localhost/content/++extensions++/")
+  >>> actor.getLink('View model').click()
+  >>> actor.getControl(name='form.widgets.view:list').value = ['__default__']
+  >>> actor.getControl(name='form.buttons.save').click()
+
+  >>> actor.open("http://localhost/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  ...<h1 class="z-content-title">My Content</h1>...
+  <div>My Content Body: My Content</div>
+  ...
+  </html>
+
+
+Enable plain view
+
+  >>> actor.open("http://localhost/content/++extensions++/")
+  >>> actor.getLink('View model').click()
+  >>> actor.getControl(name='form.widgets.view:list').value = ['plain']
+  >>> actor.getControl(name='form.buttons.save').click()
+
+  >>> actor.open("http://localhost/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  <div>My Content Body: My Content</div>
+  ...
+  </html>
+
+  >>> '<h1 class="z-content-title">My Content</h1>' not in actor.contents
+  True
