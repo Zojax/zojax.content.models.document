@@ -1,0 +1,71 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Thu Dec  8 22:37:58 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/content/models/document/documentation/configure.zcml:7
+msgid "Images are displayed on the right, while attachments are on the bottom of the document. This is a simple layout that can be used for documentation, for example."
+msgstr ""
+
+#: src/zojax/content/models/document/documentation/configure.zcml:7
+msgid "Model: Documentation model"
+msgstr ""
+
+#: src/zojax/content/models/document/documentation/interfaces.py:27
+#: src/zojax/content/models/document/newspaper/interfaces.py:32
+msgid "Show images titles"
+msgstr ""
+
+#: src/zojax/content/models/document/documentation/interfaces.py:32
+msgid "Images"
+msgstr ""
+
+#: src/zojax/content/models/document/documentation/interfaces.py:39
+#: src/zojax/content/models/document/newspaper/interfaces.py:45
+msgid "Document attachments"
+msgstr ""
+
+#: src/zojax/content/models/document/newspaper/configure.zcml:7
+msgid "Model: Newspaper article"
+msgstr ""
+
+#: src/zojax/content/models/document/newspaper/configure.zcml:7
+msgid "The first image is displayed in the text header. Other images are displayed on the right, while attachments are on the bottom of the document. This is a simple layout that can be used for end-user articles, for example."
+msgstr ""
+
+#: src/zojax/content/models/document/newspaper/interfaces.py:27
+msgid "Primary image"
+msgstr ""
+
+#: src/zojax/content/models/document/newspaper/interfaces.py:38
+msgid "Additional images"
+msgstr ""
+
+#: src/zojax/content/models/document/plain/configure.zcml:8
+msgid "Plain view"
+msgstr ""
+
+#: src/zojax/content/models/document/plain/configure.zcml:8
+msgid "Show only contents of content item, without title, description or any additional information."
+msgstr ""
+
